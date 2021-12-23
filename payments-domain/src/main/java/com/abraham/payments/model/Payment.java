@@ -15,10 +15,8 @@ public class Payment {
   private String creditCard;
   private Integer amount;
 
-  private ThirdPartyValidationService validationService;
-
-  public void validate() throws InvalidPaymentException {
-    if (PaymentType.ONLINE.equals(type)) {
+  public void validate(final ThirdPartyValidationService validationService) throws InvalidPaymentException {
+    if (PaymentType.ONLINE.equals(this.type)) {
       validationService.validate(this);
     }
   }

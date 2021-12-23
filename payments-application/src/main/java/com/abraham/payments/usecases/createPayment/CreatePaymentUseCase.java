@@ -4,6 +4,7 @@ import com.abraham.payments.exception.InvalidPaymentException;
 import com.abraham.payments.exception.PaymentStorageException;
 import com.abraham.payments.model.Payment;
 import com.abraham.payments.service.PaymentRepository;
+import com.abraham.payments.service.ThirdPartyValidationService;
 import com.abraham.payments.usecases.utils.ErrorLoggingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,15 @@ public class CreatePaymentUseCase {
   private PaymentRepository paymentRepository;
 
   @Autowired
+  private ThirdPartyValidationService validationService;
+
+  @Autowired
   private ErrorLoggingService errorService;
 
   public void execute(final Payment payment) {
 
     try {
-      payment.validate();
+      payment.validate(this.validationService);
       this.paymentRepository.save(payment);
     } catch (final Exception e) {
       this.handleError(payment.getPaymentId(), e);

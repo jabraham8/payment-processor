@@ -22,10 +22,10 @@ public class PaymentTest {
   public void online_payments_are_validated() {
 
     // Given
-    final Payment payment = Payment.builder().type(PaymentType.ONLINE).validationService(this.validationService).build();
+    final Payment payment = Payment.builder().type(PaymentType.ONLINE).build();
 
     // When
-    payment.validate();
+    payment.validate(this.validationService);
 
     // Then
     verify(this.validationService).validate(payment);
@@ -35,10 +35,10 @@ public class PaymentTest {
   public void offline_payments_are_not_validated() {
 
     // Given
-    final Payment payment = Payment.builder().type(PaymentType.OFFLINE).validationService(this.validationService).build();
+    final Payment payment = Payment.builder().type(PaymentType.OFFLINE).build();
 
     // When
-    payment.validate();
+    payment.validate(this.validationService);
 
     // Then
     verify(this.validationService, never()).validate(any());
@@ -48,11 +48,11 @@ public class PaymentTest {
   public void invalid_payment_is_thrown() {
 
     // Given
-    final Payment payment = Payment.builder().type(PaymentType.ONLINE).validationService(this.validationService).build();
+    final Payment payment = Payment.builder().type(PaymentType.ONLINE).build();
     doThrow(InvalidPaymentException.class).when(this.validationService).validate(any());
 
     // When
-    assertThrows(InvalidPaymentException.class, () -> payment.validate());
+    assertThrows(InvalidPaymentException.class, () -> payment.validate(this.validationService));
 
     // Then
     verify(this.validationService).validate(payment);

@@ -4,6 +4,7 @@ import com.abraham.payments.exception.InvalidPaymentException;
 import com.abraham.payments.exception.PaymentStorageException;
 import com.abraham.payments.model.Payment;
 import com.abraham.payments.service.PaymentRepository;
+import com.abraham.payments.service.ThirdPartyValidationService;
 import com.abraham.payments.usecases.utils.ErrorLoggingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,9 @@ public class CreatePaymentUseCaseTest {
   @Mock
   private PaymentRepository paymentRepository;
 
+  @Mock
+  private ThirdPartyValidationService validationService;
+
   @InjectMocks
   private CreatePaymentUseCase useCase;
 
@@ -34,7 +38,7 @@ public class CreatePaymentUseCaseTest {
     this.useCase.execute(payment);
 
     // Then
-    verify(payment).validate();
+    verify(payment).validate(this.validationService);
     verify(this.paymentRepository).save(payment);
     verify(this.errorLoggingService, never()).logError(any(), any(), any());
   }
@@ -44,13 +48,13 @@ public class CreatePaymentUseCaseTest {
 
     //Given
     doReturn("123456").when(payment).getPaymentId();
-    doThrow(InvalidPaymentException.class).when(payment).validate();
+    doThrow(InvalidPaymentException.class).when(payment).validate(any());
 
     // When
     this.useCase.execute(payment);
 
     // Then
-    verify(payment).validate();
+    verify(payment).validate(this.validationService);
     verify(this.paymentRepository, never()).save(payment);
     verify(this.errorLoggingService).logError(eq("123456"), eq(ErrorLoggingService.ErrorType.NETWORK), any());
   }
@@ -66,7 +70,7 @@ public class CreatePaymentUseCaseTest {
     this.useCase.execute(payment);
 
     // Then
-    verify(payment).validate();
+    verify(payment).validate(this.validationService);
     verify(this.paymentRepository).save(payment);
     verify(this.errorLoggingService).logError(eq("123456"), eq(ErrorLoggingService.ErrorType.DATABASE), any());
   }
