@@ -17,10 +17,12 @@
         <dependency>
             <groupId>com.abraham</groupId>
             <artifactId>payments-event</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.abraham</groupId>
             <artifactId>payments-infrastructure</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -35,4 +37,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

@@ -1,2 +1,25 @@
 server:
   port: 8081
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.function: DEBUG
+    org.springframework.beans: DEBUG
+
+
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        input-in-0:
+          destination: online
+          group: hello-thing
+        output-out-0:
+          destination: online
+
+    function:
+      definition: input;output
+
+

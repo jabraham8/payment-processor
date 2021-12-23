@@ -29,7 +29,7 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
-		<spring-cloud.version>2021.0.0</spring-cloud.version>
+		<spring-cloud.version>2020.0.5</spring-cloud.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -104,26 +104,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>payments-application</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>payments-domain</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>payments-infrastructure</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>payments-event</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>

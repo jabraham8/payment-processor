@@ -17,6 +17,7 @@
         <dependency>
             <groupId>com.abraham</groupId>
             <artifactId>payments-application</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!-- Even though I am not using the reactive aproach, I need this dependency to use WebClient, since
         RestTemplate class is in maintenance mode and WebClient should be used -->
