@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Consumer;
 
 @Slf4j
-@Component("input")
+@Component("payment-consumer")
 public class PaymentConsumer implements Consumer<PaymentDto> {
 
   @Autowired

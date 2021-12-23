@@ -18,8 +18,8 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
-  @Bean
-  public Supplier<Message<PaymentDto>> output() {
+  @Bean("online-producer")
+  public Supplier<Message<PaymentDto>> onlineProducer() {
     return () -> {
       return MessageBuilder.withPayload(
               PaymentDto.builder()
@@ -28,6 +28,21 @@ public class Application {
                       .creditCard("138497813")
                       .accountId("32")
                       .amount(32)
+                      .build()
+      ).build();
+    };
+  }
+
+  @Bean("offline-producer")
+  public Supplier<Message<PaymentDto>> offlineProducer() {
+    return () -> {
+      return MessageBuilder.withPayload(
+              PaymentDto.builder()
+                      .paymentId(String.valueOf(RANDOM.nextInt()))
+                      .type("offline")
+                      .creditCard("1987349")
+                      .accountId("1")
+                      .amount(43)
                       .build()
       ).build();
     };

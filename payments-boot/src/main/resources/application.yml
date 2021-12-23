@@ -5,21 +5,22 @@ logging:
   level:
     root: INFO
     org.springframework.cloud.function: DEBUG
-    org.springframework.beans: DEBUG
-
-
 
 spring:
   cloud:
-    stream:
-      bindings:
-        input-in-0:
-          destination: online
-          group: hello-thing
-        output-out-0:
-          destination: online
-
     function:
-      definition: input;output
+      definition: payment-consumer;online-producer;offline-producer
+    stream:
+      kafka.bindings.payment-consumer-in-0.consumer.destinationIsPattern: true
+      bindings:
+        payment-consumer-in-0:
+          destination: online|offline
+          group: payment-processor
+        online-producer-out-0:
+          destination: online
+        offline-producer-out-0:
+          destination: offline
+
+
 
 
