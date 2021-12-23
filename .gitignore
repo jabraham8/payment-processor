@@ -24,6 +24,8 @@ target/
 
 # Package Files #
 *.jar
+!docker/ApiAndProducer/bin/app.jar
+!docker/ApiAndProducer/bin/producer.jar
 *.war
 *.nar
 *.ear
