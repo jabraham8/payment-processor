@@ -15,3 +15,5 @@ _If u have more time or want to improve somthing..._
 * Add Mapstruct for mappings
 * Add circuit breaker with resilience to external calls
 * Add SpotBugs and Sonar analysis on mvn compile tasks
+* Configure database pool properly
+* Improve data quality (enum check, negative integer values, non-nullable ...)

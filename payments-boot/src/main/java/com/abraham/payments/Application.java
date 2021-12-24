@@ -23,11 +23,11 @@ public class Application {
     return () -> {
       return MessageBuilder.withPayload(
               PaymentDto.builder()
-                      .paymentId(String.valueOf(RANDOM.nextInt()))
+                      .paymentId(String.valueOf(RANDOM.nextInt(Integer.MAX_VALUE)))
                       .type("online")
                       .creditCard("138497813")
-                      .accountId("32")
-                      .amount(32)
+                      .accountId(this.getValidAccountId())
+                      .amount(RANDOM.nextInt(10000))
                       .build()
       ).build();
     };
@@ -38,13 +38,17 @@ public class Application {
     return () -> {
       return MessageBuilder.withPayload(
               PaymentDto.builder()
-                      .paymentId(String.valueOf(RANDOM.nextInt()))
+                      .paymentId(String.valueOf(RANDOM.nextInt(Integer.MAX_VALUE)))
                       .type("offline")
                       .creditCard("1987349")
-                      .accountId("1")
-                      .amount(43)
+                      .accountId(this.getValidAccountId())
+                      .amount(RANDOM.nextInt(10000))
                       .build()
       ).build();
     };
+  }
+
+  private String getValidAccountId() {
+    return String.valueOf(RANDOM.ints(1, 1, 101).findFirst().getAsInt());
   }
 }

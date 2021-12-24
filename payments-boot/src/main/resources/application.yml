@@ -7,6 +7,12 @@ logging:
     org.springframework.cloud.function: DEBUG
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payments
+    username: tech
+    password: test
+    driver.class: org.postgresql.Driver
+
   cloud:
     function:
       definition: payment-consumer;online-producer;offline-producer
