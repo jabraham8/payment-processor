@@ -28,17 +28,24 @@ public class PaymentRepositoryImpl implements PaymentRepository {
   private PaymentDtoMapper paymentMapper;
 
   @Override
-  @Transactional
   public void save(final Payment payment) throws PaymentStorageException {
 
     log.debug("Proceeding to save payment {}", payment);
     final PaymentDto paymentDto = this.paymentMapper.from(payment);
 
     try {
-      this.paymentDAO.save(paymentDto);
-      this.accountDAO.updatePaymentDate(Instant.now(), paymentDto.getAccountId());
+      // Delegate it to a method, so TransactionalManager fails the transaction, and we still have the control
+      // in the infrastructure layer, so we can encapsulate the error. So no concrete database errors are thrown to
+      // application layer
+      this.transactionalSave(paymentDto);
     } catch (final Exception e) {
       throw new PaymentStorageException("Some error occurred during the persistence of the payment", e);
     }
+  }
+
+  @Transactional
+  private void transactionalSave(final PaymentDto paymentDto) {
+    this.paymentDAO.save(paymentDto);
+    this.accountDAO.updatePaymentDate(Instant.now(), paymentDto.getAccountId());
   }
 }

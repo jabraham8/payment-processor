@@ -44,11 +44,12 @@ public class CreatePaymentUseCase {
       log.debug("Payment with id {} validated as invalid", paymentId);
     } else if (e instanceof PaymentStorageException) {
       errorType = ErrorLoggingService.ErrorType.DATABASE;
-      message = "Error storing payment: " + e.getMessage() + "\n" + e.getStackTrace();
+      message = "Error storing payment: " + e.getMessage() + " " + e.getCause().getMessage();
       log.error("Error storing payment", e);
     } else {
       errorType = ErrorLoggingService.ErrorType.OTHER;
-      message = "Unexpected exception: " + e.getMessage() + "\n" + e.getStackTrace();
+      message = "Unexpected exception: " + e.getMessage() + " " + e.getCause().getMessage();
+      ;
       log.error("Unexpected error processing payment", e);
     }
 

@@ -15,7 +15,7 @@ spring:
 
   cloud:
     function:
-      definition: payment-consumer;online-producer;offline-producer
+      definition: payment-consumer;online-producer;offline-producer;failing-producer
     stream:
       kafka.bindings.payment-consumer-in-0.consumer.destinationIsPattern: true
       bindings:
@@ -25,6 +25,8 @@ spring:
         online-producer-out-0:
           destination: online
         offline-producer-out-0:
+          destination: offline
+        failing-producer-out-0:
           destination: offline
 
 
