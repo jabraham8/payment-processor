@@ -31,7 +31,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
   @Transactional
   public void save(final Payment payment) throws PaymentStorageException {
 
-    log.info("Received payment {}", payment);
+    log.debug("Proceeding to save payment {}", payment);
     final PaymentDto paymentDto = this.paymentMapper.from(payment);
 
     try {

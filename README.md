@@ -17,3 +17,4 @@ _If u have more time or want to improve somthing..._
 * Add SpotBugs and Sonar analysis on mvn compile tasks
 * Configure database pool properly
 * Improve data quality (enum check, negative integer values, non-nullable ...)
+* Move hots and path fields of restclients to properties file
