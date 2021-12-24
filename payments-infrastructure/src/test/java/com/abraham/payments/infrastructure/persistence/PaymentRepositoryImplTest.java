@@ -1,11 +1,10 @@
-package com.abraham.payments.repository;
+package com.abraham.payments.infrastructure.persistence;
 
 import com.abraham.payments.exception.PaymentStorageException;
-import com.abraham.payments.infrastructure.dao.AccountDAO;
-import com.abraham.payments.infrastructure.dao.PaymentDAO;
-import com.abraham.payments.infrastructure.dto.PaymentDto;
-import com.abraham.payments.infrastructure.mapper.PaymentDtoMapper;
-import com.abraham.payments.infrastructure.repository.PaymentRepositoryImpl;
+import com.abraham.payments.infrastructure.persistence.dao.AccountDAO;
+import com.abraham.payments.infrastructure.persistence.dao.PaymentDAO;
+import com.abraham.payments.infrastructure.persistence.dao.dto.PaymentDto;
+import com.abraham.payments.infrastructure.persistence.mapper.PaymentDtoMapper;
 import com.abraham.payments.model.Payment;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

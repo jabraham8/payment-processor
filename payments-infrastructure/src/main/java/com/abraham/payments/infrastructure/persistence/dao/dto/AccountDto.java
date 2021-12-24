@@ -1,4 +1,4 @@
-package com.abraham.payments.infrastructure.dto;
+package com.abraham.payments.infrastructure.persistence.dao.dto;
 
 import lombok.*;
 
@@ -22,18 +22,6 @@ public class AccountDto {
   @Column(name = "account_id")
   private Integer accountId;
 
-//  @Column
-//  private String name;
-//
-//  @Column
-//  private String email;
-//
-//  @Column(name = "birthdate")
-//  private LocalDate birthDate;
-
   @Column(name = "last_payment_date")
   private Instant lastPaymentDate;
-
-//  @Column(name = "created_on")
-//  private Instant createdOn;
 }

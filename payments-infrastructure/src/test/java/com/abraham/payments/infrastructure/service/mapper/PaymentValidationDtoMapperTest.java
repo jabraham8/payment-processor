@@ -1,7 +1,6 @@
-package com.abraham.payments.mapper;
+package com.abraham.payments.infrastructure.service.mapper;
 
-import com.abraham.payments.infrastructure.dto.PaymentDto;
-import com.abraham.payments.infrastructure.mapper.PaymentDtoMapper;
+import com.abraham.payments.infrastructure.service.client.dto.PaymentValidationDto;
 import com.abraham.payments.model.Payment;
 import com.abraham.payments.model.PaymentType;
 import org.junit.jupiter.api.Test;
@@ -9,12 +8,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PaymentDtoMapperTest {
+public class PaymentValidationDtoMapperTest {
 
-  private final PaymentDtoMapper mapper = new PaymentDtoMapper();
+  private final PaymentValidationDtoMapper mapper = new PaymentValidationDtoMapper();
 
   @Test
-  public void payment_dto_is_mapped() {
+  public void payment_validation_dto_is_mapped() {
 
     // Given
     final Payment payment = Payment.builder()
@@ -22,14 +21,14 @@ public class PaymentDtoMapperTest {
             .build();
 
     // When
-    final PaymentDto dto = this.mapper.from(payment);
+    final PaymentValidationDto dto = this.mapper.map(payment);
 
     // Then
     assertAll(() -> {
       assertEquals(payment.getPaymentId(), dto.getPaymentId());
       assertEquals(payment.getAccountId(), String.valueOf(dto.getAccountId()));
-      assertEquals(payment.getAmount(), dto.getAmount());
       assertEquals(payment.getCreditCard(), dto.getCreditCard());
+      assertEquals(payment.getAmount(), dto.getAmount());
       assertEquals(payment.getType().getValue(), dto.getPaymentType());
     });
   }

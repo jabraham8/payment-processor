@@ -1,6 +1,6 @@
-package com.abraham.payments.infrastructure.dao;
+package com.abraham.payments.infrastructure.persistence.dao;
 
-import com.abraham.payments.infrastructure.dto.AccountDto;
+import com.abraham.payments.infrastructure.persistence.dao.dto.AccountDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

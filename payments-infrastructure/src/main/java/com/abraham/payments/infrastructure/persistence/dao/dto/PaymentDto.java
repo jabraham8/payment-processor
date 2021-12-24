@@ -1,4 +1,4 @@
-package com.abraham.payments.infrastructure.dto;
+package com.abraham.payments.infrastructure.persistence.dao.dto;
 
 import lombok.*;
 

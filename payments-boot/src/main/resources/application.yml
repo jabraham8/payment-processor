@@ -4,7 +4,7 @@ server:
 logging:
   level:
     root: INFO
-    org.springframework.cloud.function: DEBUG
+    com.abraham.payments: DEBUG
 
 spring:
   datasource:
