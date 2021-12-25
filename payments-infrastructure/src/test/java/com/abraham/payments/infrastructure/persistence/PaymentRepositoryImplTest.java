@@ -5,14 +5,14 @@ import com.abraham.payments.infrastructure.persistence.dao.AccountDAO;
 import com.abraham.payments.infrastructure.persistence.dao.PaymentDAO;
 import com.abraham.payments.infrastructure.persistence.dao.dto.PaymentDto;
 import com.abraham.payments.infrastructure.persistence.mapper.PaymentDtoMapper;
+import com.abraham.payments.infrastructure.persistence.utils.TransactionComposer;
 import com.abraham.payments.model.Payment;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.persistence.PersistenceException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,6 +30,9 @@ public class PaymentRepositoryImplTest {
   @Mock
   private PaymentDtoMapper paymentDtoMapper;
 
+  @Mock
+  private TransactionComposer transactionComposer;
+
   @InjectMocks
   private PaymentRepositoryImpl paymentRepository;
 
@@ -41,6 +44,7 @@ public class PaymentRepositoryImplTest {
 
     // Given
     when(this.paymentDtoMapper.from(payment)).thenReturn(dto);
+    doCallRealMethod().when(this.transactionComposer).execute(any());
 
     // When
     this.paymentRepository.save(payment);
@@ -59,7 +63,8 @@ public class PaymentRepositoryImplTest {
 
     // Given
     when(this.paymentDtoMapper.from(payment)).thenReturn(dto);
-    doThrow(PersistenceException.class).when(this.paymentDAO).save(any());
+    doCallRealMethod().when(this.transactionComposer).execute(any());
+    doThrow(ConstraintViolationException.class).when(this.paymentDAO).save(any());
 
     // When
     assertThrows(PaymentStorageException.class, () -> this.paymentRepository.save(payment));

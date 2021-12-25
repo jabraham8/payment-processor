@@ -5,12 +5,12 @@ import com.abraham.payments.infrastructure.persistence.dao.AccountDAO;
 import com.abraham.payments.infrastructure.persistence.dao.PaymentDAO;
 import com.abraham.payments.infrastructure.persistence.dao.dto.PaymentDto;
 import com.abraham.payments.infrastructure.persistence.mapper.PaymentDtoMapper;
+import com.abraham.payments.infrastructure.persistence.utils.TransactionComposer;
 import com.abraham.payments.model.Payment;
 import com.abraham.payments.service.PaymentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
@@ -27,6 +27,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
   @Autowired
   private PaymentDtoMapper paymentMapper;
 
+  @Autowired
+  private TransactionComposer transactionComposer;
+
   @Override
   public void save(final Payment payment) throws PaymentStorageException {
 
@@ -34,18 +37,12 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     final PaymentDto paymentDto = this.paymentMapper.from(payment);
 
     try {
-      // Delegate it to a method, so TransactionalManager fails the transaction, and we still have the control
-      // in the infrastructure layer, so we can encapsulate the error. So no concrete database errors are thrown to
-      // application layer
-      this.transactionalSave(paymentDto);
+      this.transactionComposer.execute(
+              () -> this.paymentDAO.save(paymentDto),
+              () -> this.accountDAO.updatePaymentDate(Instant.now(), paymentDto.getAccountId()));
     } catch (final Exception e) {
+      // Wrap any internal database exception in the domain exception for persistence
       throw new PaymentStorageException("Some error occurred during the persistence of the payment", e);
     }
-  }
-
-  @Transactional
-  private void transactionalSave(final PaymentDto paymentDto) {
-    this.paymentDAO.save(paymentDto);
-    this.accountDAO.updatePaymentDate(Instant.now(), paymentDto.getAccountId());
   }
 }
