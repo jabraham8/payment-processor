@@ -49,7 +49,6 @@ public class CreatePaymentUseCase {
     } else {
       errorType = ErrorLoggingService.ErrorType.OTHER;
       message = "Unexpected exception: " + e.getMessage() + " " + e.getCause().getMessage();
-      ;
       log.error("Unexpected error processing payment", e);
     }
 

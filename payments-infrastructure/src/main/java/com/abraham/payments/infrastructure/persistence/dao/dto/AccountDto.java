@@ -1,6 +1,9 @@
 package com.abraham.payments.infrastructure.persistence.dao.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +12,9 @@ import javax.persistence.Table;
 import java.time.Instant;
 
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "accounts")
 public class AccountDto {

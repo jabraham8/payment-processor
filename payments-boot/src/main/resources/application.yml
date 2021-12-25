@@ -4,7 +4,6 @@ server:
 logging:
   level:
     root: INFO
-    com.abraham.payments: DEBUG
 
 spring:
   datasource:

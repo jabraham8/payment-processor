@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.security.InvalidParameterException;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -64,7 +66,7 @@ public class CreatePaymentUseCaseTest {
 
     //Given
     doReturn("123456").when(payment).getPaymentId();
-    doThrow(PaymentStorageException.class).when(this.paymentRepository).save(payment);
+    doThrow(new PaymentStorageException("some-message", new InvalidParameterException())).when(this.paymentRepository).save(payment);
 
     // When
     this.useCase.execute(payment);

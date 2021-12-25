@@ -26,6 +26,11 @@ that would start the application and start producing and consuming messages.
 **IMPORTANT**: You will see some failures logging during application execution. This is normal as we are purposely
 producing payments whose processing will cause these failures as stated at the beginning of this section
 
+Aplication was built with:
+
+* OpenJDK Runtime Environment 18.9 (build 11+28)
+* Apache Maven 3.8.3
+
 ## :memo: Notes
 
 _Some notes or explaination of your solution..._
